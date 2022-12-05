@@ -1,0 +1,13 @@
+app:
+  swagger:
+    app-info:
+      title: Devlife Auth Service
+      description: Devlife Authentication Service
+      version: 1.0
+      term-of-services: term of services
+      license: none
+      license-url: none
+      contact:
+        name: Nguyen Ta Minh Trung
+        url: http://localhost:8081.com
+        email: trungntm.97@gmail.com

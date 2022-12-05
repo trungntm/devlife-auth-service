@@ -1,0 +1,11 @@
+[
+  {
+    "username": "sa",
+    "password": "Admin@123",
+    "email": "trungntm.97@gmail.com",
+    "admin": true,
+    "attributes": {
+      "phoneNumber": ["0384648350"]
+    }
+  }
+]

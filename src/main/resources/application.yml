@@ -1,0 +1,78 @@
+spring:
+  application:
+    name: devlife-auth-service
+  config:
+    import: optional:configserver:${CONFIG-SERVER-URI:http://localhost:8888}
+  liquibase:
+    enabled: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${KEYCLOAK_DB_HOST:localhost}:${KEYCLOAK_DB_PORT:5432}/authn
+    username: ${KEYCLOAK_DB_USERNAME:postgres}
+    password: ${KEYCLOAK_DB_PASSWORD:Admin@123}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_RESOURCE_URI:http://localhost:9091/realms/devlife/protocol/openid-connect/certs}
+
+server:
+  port: 8081
+  error:
+    include-message: always
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
+  instance:
+    hostname: devlife-auth-service
+    prefer-ip-address: true
+
+feign:
+  hystrix:
+    enabled: true
+
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 1200000
+  eager-load:
+    enabled: true
+    clients: service-bar
+keycloak:
+  realm: devlife
+  auth-server-url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:9091}
+  resource: devlife
+  bearer-only: true
+  use-resource-role-mappings: true
+  cors: true
+  principal-attribute: preferred_username
+  cors-max-age: 3600
+  cors-exposed-headers: Authorization
+app:
+  oauth2:
+    resource-server:
+      enabled: false
+  keycloak:
+    password: gslihyiyqqhknylv
+    root-user: sa
+    root-password: Admin@123
+    client-id: devlife
+    client-secret: Cholrw3TlvIxZJz5Z5V2sH88DHjQS6zr
+    password-temporary: false
+    send-email-verification: true
+keycloak-initializer:
+  initializeOnStartup: true
+  masterRealm: master
+  applicationRealm: devlife
+  client-id: admin-cli
+  username: admin
+  password: Pa55w0rd
+  url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:9091}
